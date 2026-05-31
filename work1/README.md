@@ -1,6 +1,6 @@
 # Описание
 
-Для запуска проекта нужно создать таблицы и заполнить их данными из файла `createAndInsert.sql`
+Для запуска проекта нужно создать таблицы и заполнить их данными из файла `work1/createAndInsert.sql`
 
 ## Задача 1
 
@@ -115,29 +115,42 @@ gear_count > 18 AND price < 4000``
 
 ## Схема связей (ER-диаграмма)
 
-                    ┌─────────────────┐
-                    │     Vehicle      │
-                    │─────────────────│
-                    │ maker (VARCHAR)  │
-                    │ model (PK)       │
-                    │ type (Car/Moto/  │
-                    │       Bicycle)   │
-                    └────────┬────────┘
-                             │
-            ┌────────────────┼────────────────┐
-            │                │                │
-            ▼                ▼                ▼
-    ┌───────────┐    ┌───────────┐    ┌───────────┐
-    │    Car    │    │ Motorcycle│    │  Bicycle  │
-    │───────────│    │───────────│    │───────────│
-    │ vin (PK)  │    │ vin (PK)  │    │serial_num │
-    │ model (FK)│    │ model (FK)│    │ (PK)      │
-    │engine_cap │    │engine_cap │    │ model (FK)│
-    │horsepower │    │horsepower │    │ gear_count│
-    │ price     │    │ price     │    │ price     │
-    │transmission│   │ type      │    │ type      │
-    └───────────┘    └───────────┘    └───────────┘
 
-```
-
+```mermaid
+erDiagram
+    Vehicle {
+        varchar100 maker
+        varchar100 model PK
+        varchar20 type
+    }
+    
+    Car {
+        varchar17 vin PK
+        varchar100 model FK
+        decimal42 engine_capacity
+        int horsepower
+        decimal102 price
+        varchar20 transmission
+    }
+    
+    Motorcycle {
+        varchar17 vin PK
+        varchar100 model FK
+        decimal42 engine_capacity
+        int horsepower
+        decimal102 price
+        varchar20 type
+    }
+    
+    Bicycle {
+        varchar20 serial_number PK
+        varchar100 model FK
+        int gear_count
+        decimal102 price
+        varchar20 type
+    }
+    
+    Vehicle ||--o| Car : "имеет"
+    Vehicle ||--o| Motorcycle : "имеет"
+    Vehicle ||--o| Bicycle : "имеет"
 ```
