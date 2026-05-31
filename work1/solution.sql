@@ -1,4 +1,5 @@
 -- Задача 1
+
 SELECT maker, motorcycle.model FROM `motorcycle` JOIN `vehicle` ON motorcycle.model = vehicle.model WHERE horsepower > 150
 
 -- Задача 2
